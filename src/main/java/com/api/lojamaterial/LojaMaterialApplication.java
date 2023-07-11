@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @SpringBootApplication
-public class LojaMaterialApplication {
+public class 	LojaMaterialApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(LojaMaterialApplication.class, args);

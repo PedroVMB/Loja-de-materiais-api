@@ -9,6 +9,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 public class MaterialService {
@@ -24,7 +25,7 @@ public class MaterialService {
         return repository.findAll(pageable);
     }
 
-    public Optional<Material> findById(String id){
+    public Optional<Material> findById(UUID id){
         return repository.findById(id);
     }
 

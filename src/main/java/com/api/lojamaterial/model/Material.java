@@ -5,6 +5,7 @@ import lombok.*;
 
 import java.io.Serial;
 import java.io.Serializable;
+import java.util.UUID;
 
 @Entity
 @Table(name = "tb_materiais")
@@ -18,7 +19,7 @@ public class Material implements Serializable {
     public static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private String id;
+    private UUID id;
 
     @Column(name = "nome_material", nullable = false)
     private String nome;

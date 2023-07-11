@@ -1,4 +1,4 @@
-package com.api.cadastrofuncionarios.lambda.controller;
+package com.api.lojamaterial.controller;
 
 import com.api.lojamaterial.dto.MaterialDto;
 import com.api.lojamaterial.enums.GeneralMessages;
@@ -16,6 +16,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
+import java.util.UUID;
 
 
 @CrossOrigin(origins = "*", maxAge = 3600)
@@ -39,7 +40,7 @@ public class MaterialController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Object> getOneMaterial(@PathVariable(value = "id") String id){
+    public ResponseEntity<Object> getOneMaterial(@PathVariable(value = "id") UUID id){
         Optional<Material> materialModelOptional = service.findById(id);
         if (!materialModelOptional.isPresent()){
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(GeneralMessages.MATERIAL_NOT_FOUND);
@@ -48,7 +49,7 @@ public class MaterialController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Object> deleteMaterial(@PathVariable(value = "id") String id){
+    public ResponseEntity<Object> deleteMaterial(@PathVariable(value = "id") UUID id){
         Optional<Material> materialModelOptional = service.findById(id);
         if (!materialModelOptional.isPresent()){
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(GeneralMessages.MATERIAL_NOT_FOUND);
@@ -58,7 +59,7 @@ public class MaterialController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Object> updateMaterials(@PathVariable(value = "id") String id, @RequestBody @Valid MaterialDto materialDto){
+    public ResponseEntity<Object> updateMaterials(@PathVariable(value = "id") UUID id, @RequestBody @Valid MaterialDto materialDto){
         Optional<Material> materialModelOptional = service.findById(id);
         if(!materialModelOptional.isPresent()){
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(GeneralMessages.MATERIAL_NOT_FOUND);
@@ -68,8 +69,4 @@ public class MaterialController {
         parkingSpotModel.setId(materialModelOptional.get().getId());
         return ResponseEntity.status(HttpStatus.OK).body("UPDATED PARKING SPOT");
     }
-
-
-
-
 }
