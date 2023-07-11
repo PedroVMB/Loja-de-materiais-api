@@ -16,7 +16,6 @@ import java.io.Serializable;
 public class Material implements Serializable {
     @Serial
     public static final long serialVersionUID = 1L;
-
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private String id;

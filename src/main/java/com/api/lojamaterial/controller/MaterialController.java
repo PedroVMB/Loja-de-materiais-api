@@ -27,26 +27,28 @@ public class MaterialController {
     public MaterialService service;
 
     @PostMapping
-    public ResponseEntity<Object> saveFunctionary(@RequestBody @Valid MaterialDto materialDto){
+    public ResponseEntity<Object> saveMaterial(@RequestBody @Valid MaterialDto materialDto){
         var materialModel = new Material();
         BeanUtils.copyProperties(materialDto, materialModel);
         return ResponseEntity.status(HttpStatus.CREATED).body(service.save(materialModel));
     }
     @GetMapping
-    public ResponseEntity<Page<Material>> getAllFunctionary(@PageableDefault(page = 0, size = 20,
-            sort = "id", direction = Sort.Direction.ASC)Pageable pageable){
+    public ResponseEntity<Page<Material>> getAllMaterials(@PageableDefault(page = 0, size = 10, sort = "id",
+            direction = Sort.Direction.ASC)Pageable pageable){
         return ResponseEntity.status(HttpStatus.OK).body(service.findAll(pageable));
     }
+
     @GetMapping("/{id}")
-    public ResponseEntity<Object> getOneFunctionary(@PathVariable(value = "id")String id){
-        Optional<Material> functionaryModelOptional = service.findById(id);
-        if (!functionaryModelOptional.isPresent()){
+    public ResponseEntity<Object> getOneMaterial(@PathVariable(value = "id") String id){
+        Optional<Material> materialModelOptional = service.findById(id);
+        if (!materialModelOptional.isPresent()){
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(GeneralMessages.MATERIAL_NOT_FOUND);
         }
-        return ResponseEntity.status(HttpStatus.OK).body(functionaryModelOptional.get());
+        return ResponseEntity.status(HttpStatus.OK).body(materialModelOptional.get());
     }
+
     @DeleteMapping("/{id}")
-    public ResponseEntity<Object> deleteFunctionary(@PathVariable(value = "id")String id){
+    public ResponseEntity<Object> deleteMaterial(@PathVariable(value = "id") String id){
         Optional<Material> materialModelOptional = service.findById(id);
         if (!materialModelOptional.isPresent()){
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(GeneralMessages.MATERIAL_NOT_FOUND);
@@ -54,16 +56,17 @@ public class MaterialController {
         service.delete(materialModelOptional.get());
         return ResponseEntity.status(HttpStatus.OK).body(GeneralMessages.MATERIAL_DELETED);
     }
+
     @PutMapping("/{id}")
-    public ResponseEntity<Object> updateFunctionary(@PathVariable(value = "id") String id, @RequestBody @Valid MaterialDto materialDto){
-        Optional<Material> functionaryModelOptional = service.findById(id);
-        if(!functionaryModelOptional.isPresent()){
+    public ResponseEntity<Object> updateMaterials(@PathVariable(value = "id") String id, @RequestBody @Valid MaterialDto materialDto){
+        Optional<Material> materialModelOptional = service.findById(id);
+        if(!materialModelOptional.isPresent()){
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(GeneralMessages.MATERIAL_NOT_FOUND);
         }
-        var materialModel = new Material();
-        BeanUtils.copyProperties(materialDto, materialModel);
-        materialModel.setId(functionaryModelOptional.get().getId());
-        return ResponseEntity.status(HttpStatus.OK).body(GeneralMessages.MATERIAL_ATUALIZADO);
+        var parkingSpotModel = new Material();
+        BeanUtils.copyProperties(materialDto, parkingSpotModel);
+        parkingSpotModel.setId(materialModelOptional.get().getId());
+        return ResponseEntity.status(HttpStatus.OK).body("UPDATED PARKING SPOT");
     }
 
 
